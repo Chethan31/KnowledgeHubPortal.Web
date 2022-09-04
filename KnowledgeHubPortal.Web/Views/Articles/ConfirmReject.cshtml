@@ -1,0 +1,40 @@
+﻿@using KnowledgeHubPortal.Web.Models.Data
+@model KnowledgeHubPortal.Web.Models.Entities.Article
+
+@{
+    ViewData["Title"] = "Reject";
+}
+
+<h1>Reject</h1>
+
+<h3>Are you sure you want to Reject this?</h3>
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ArticleURL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ArticleURL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Catagory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.Label(GetData.getCategory(Model.CatagoryID).Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="ConfirmReject">
+        <input type="hidden" asp-for="ArticleID" />
+        <input type="submit" value="Reject" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-primary">Cancel</a>
+    </form>
+</div>

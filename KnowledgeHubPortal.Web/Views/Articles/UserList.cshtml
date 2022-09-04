@@ -1,0 +1,66 @@
+﻿@using KnowledgeHubPortal.Web.Models.Data
+@model IEnumerable<KnowledgeHubPortal.Web.Models.Entities.Article>
+@using KnowledgeHubPortal.Web.Models.Entities
+
+<br />
+<div>
+    <h4>Article</h4>
+    <hr />
+    <h4>@TempData["Message"]</h4>
+    <a asp-action="Create" class="btn btn-primary">Add Article</a><br />
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Catagory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateSubmited)
+            </th>
+            <th>
+                @Html.Label("Status")
+            </th>
+            <th>
+                @Html.Label("Action")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticleURL)
+            </td>
+            <td>
+                @Html.Label(GetData.getCategory(item.CatagoryID).Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateSubmited)
+            </td>
+            @if (item.IsApproved == true)
+            {
+                <td>Approved</td> 
+                <td></td>
+            }
+            else
+            {
+                <td>Pending..</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ArticleID" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.ArticleID" class="btn btn-danger">Delete</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+    </table>
+</div>

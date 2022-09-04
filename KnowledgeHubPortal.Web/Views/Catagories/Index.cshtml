@@ -1,0 +1,35 @@
+﻿@model List<KnowledgeHubPortal.Web.Models.Entities.Catagory>
+
+<h3>We have @Model.Count Catagories</h3>
+<hr />
+<h4>@TempData["Message"]</h4>
+<br />
+<a asp-action="Create" class="btn btn-primary">Create New Catagory</a><br />
+
+<form asp-action="Index" method="post">
+
+    <input type="text" name="searchValue" placeholder="Enter text to search" />
+    <input type="submit" name="btnSearch" value="Search" />
+
+</form>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th width="13.5%">Action</th>
+
+    </tr>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Name</td>
+            <td>@c.Description</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@c.CatagoryID" class="btn btn-primary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@c.CatagoryID" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

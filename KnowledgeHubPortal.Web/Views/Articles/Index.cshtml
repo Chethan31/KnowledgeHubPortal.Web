@@ -1,0 +1,84 @@
+﻿@using KnowledgeHubPortal.Web.Models.Data
+@model IEnumerable<KnowledgeHubPortal.Web.Models.Entities.Article>
+@using KnowledgeHubPortal.Web.Models.Entities
+
+<br />
+<div>
+    <h4>Article</h4>
+    <hr />
+    <h4>@TempData["Message"]</h4>
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+        <label  class="control-label" style="font-weight:bold;">Catagory</label>
+        <select name="CatagoryName" class ="form-control" style="width:30%;" asp-items="ViewBag.CatagoryName">
+            <option disabled selected>--- SELECT ---</option>
+        </select>
+        <label  class="control-label" style="font-weight:bold;">Approved</label>
+        <input type="checkbox" name="Approved" value="approved"/>
+        <label  class="control-label" style="font-weight:bold;">UnApproved</label>
+        <input type="checkbox" name="UnApproved" value="unapproved"/>
+        </div>
+        <input type="submit" name="btnSearch" value="Search" />
+    </form>
+    <hr />
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArticleURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Catagory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateSubmited)
+            </th>
+            <th>
+                @Html.Label("Action")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticleURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.Label(GetData.getCategory(item.CatagoryID).Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateSubmited)
+            </td>
+            @if (item.IsApproved == true)
+            {
+                <td>
+                    <a class="btn btn-light">Approved</a>
+                    <a asp-action="Remove" asp-route-id="@item.ArticleID" class="btn btn-danger">Remove</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="Approve" asp-route-id="@item.ArticleID" class="btn btn-success">Approve</a>
+                    <a asp-action="Reject" asp-route-id="@item.ArticleID" class="btn btn-danger">Reject</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+    </table>
+</div>
+
